@@ -23,7 +23,7 @@ fun Route.phrasesApi(repository: Repository) {
     authenticate("jwt") {
 
         get<PhrasesApi> {
-            val user = call.sessions.get<EPSession>()?.let { repository.user(it.userId) }
+            val user = call.apiUser
             user?.let {
                 call.respond(repository.phrases(user.userId))
             }
